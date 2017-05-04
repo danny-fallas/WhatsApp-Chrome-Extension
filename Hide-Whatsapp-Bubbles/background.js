@@ -22,6 +22,8 @@ chrome.browserAction.onClicked.addListener(function (tab) {
     }
 });
 
+//TO DO: Add a onTabReload event function to restart the service.
+
 function callback(results) {
     console.log(results);
 }
