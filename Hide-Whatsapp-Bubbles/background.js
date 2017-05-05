@@ -1,29 +1,37 @@
-var toggle = false;
+var isActive = false;
+var _tabId = "";
 
-function startService(tab) {
+function startService() {
     chrome.browserAction.setIcon({ path: "128.png" });
     chrome.browserAction.setTitle({ title: "Turn OFF" });
-    chrome.tabs.executeScript(tab.id, { code: "start()" }, callback);
+    chrome.tabs.executeScript(_tabId, { code: "start()" });
 }
 
-function stopService(tab) {
+function stopService() {
     chrome.browserAction.setIcon({ path: "32.png" });
     chrome.browserAction.setTitle({ title: "Turn ON" });
-    chrome.tabs.executeScript(tab.id, { code: "stop()" }, callback);
+    chrome.tabs.executeScript(_tabId, { code: "stop()" });
+}
+
+function changeStatus(tabId) {
+    _tabId = tabId;
+    isActive = !isActive;
+
+    if (isActive) {
+        startService();
+    }
+    else {
+        stopService();
+    }
 }
 
 chrome.browserAction.onClicked.addListener(function (tab) {
-    toggle = !toggle;
-    if (toggle) {
-        startService(tab);
-    }
-    else {
-        stopService(tab);
-    }
+    changeStatus(tab.Id);
 });
 
-//TO DO: Add a onTabReload event function to restart the service.
-
-function callback(results) {
-    console.log(results);
-}
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+    if (changeInfo.status === "complete") {
+        isActive = false;
+        stopService();
+    }
+});
