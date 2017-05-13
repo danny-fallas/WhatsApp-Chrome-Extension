@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Hide Whatsapp Bubbles",
-    "version": "1.9.10",
+    "version": "1.9.12",
     "description": "Don't be THAT guy.",
     "icons": {
         "32": "32.png",
@@ -32,6 +32,6 @@
     ],
     "permissions": [
         "tabs",
-        "activeTab"
+        "*://*.whatsapp.com/*"
     ]
 }
