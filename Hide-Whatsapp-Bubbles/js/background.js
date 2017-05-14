@@ -3,14 +3,14 @@ var activeOnce = false;
 var _tabId = null;
 
 function startService() {
-    chrome.browserAction.setIcon({ path: '128.png' });
+    chrome.browserAction.setIcon({ path: 'media/on.png' });
     chrome.browserAction.setTitle({ title: 'Turn OFF' });
     runScript({ code: 'start()' });
     activeOnce = true;
 }
 
 function stopService() {
-    chrome.browserAction.setIcon({ path: '32.png' });
+    chrome.browserAction.setIcon({ path: 'media/off.png' });
     chrome.browserAction.setTitle({ title: 'Turn ON' });
     runScript({ code: 'stop()' });
 }
@@ -52,7 +52,7 @@ function runScript(code) {
         else if (code.file)
             chrome.tabs.executeScript(_tabId, code);
     } catch (e) {
-        console.error('ERROR: {chrome.tabs.executeScript}' + e);
+        console.error('ERROR@chrome.tabs.executeScript: ' + e);
     }
 }
 
