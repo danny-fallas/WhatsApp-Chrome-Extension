@@ -48,33 +48,32 @@ function hideBubbles() {
                 element.innerHTML = innerImg;
             }
 
-
-            element.addEventListener('mouseover', function () {
-                stop();
-                var original = $(this).attr('original-image');
-                if (this.tagName && this.tagName === 'IMG') {
-                    this.src = original;
-                } else if (this.tagName && this.tagName === 'VIDEO') {
-                    this.src = original;
-                } else if ($(this).css('background-image')) {
-                    $(this).css('background-image', original);
-                }
-            }, false);
-
-            element.addEventListener('mouseout', function () {
-                start();
-                if (this.tagName && this.tagName === 'IMG') {
-                    this.src = url;
-                } else if (this.tagName && this.tagName === 'VIDEO') {
-                    this.src = url;
-                } else if ($(this).css('background-image')) {
-                    $(this).css('background-image', cssUrl);
-                }
-            }, false);
-
             function setOriginalImageAttr(element, src) {
-                if (typeof $(element).attr('original-image') === 'undefined')
+                if (typeof $(element).attr('original-image') === 'undefined') {
                     $(element).attr('original-image', src);
+                    element.addEventListener('mouseover', function () {
+                        stop();
+                        var original = $(this).attr('original-image');
+                        if (this.tagName && this.tagName === 'IMG') {
+                            this.src = original;
+                        } else if (this.tagName && this.tagName === 'VIDEO') {
+                            this.src = original;
+                        } else if ($(this).css('background-image')) {
+                            $(this).css('background-image', original);
+                        }
+                    }, false);
+
+                    element.addEventListener('mouseout', function () {
+                        start();
+                        if (this.tagName && this.tagName === 'IMG') {
+                            this.src = url;
+                        } else if (this.tagName && this.tagName === 'VIDEO') {
+                            this.src = url;
+                        } else if ($(this).css('background-image')) {
+                            $(this).css('background-image', cssUrl);
+                        }
+                    }, false);
+                }
             }
         });
     }
@@ -86,11 +85,4 @@ function joinElements(elementGroup1, elementGroup2) {
     var array2 = Array.prototype.slice.call(elementGroup2, 0);
 
     return array1.concat(array2);
-}
-
-window.onload = function () {
-    if (window.jQuery)
-        //console.log('...jQuery is up and running.')
-    else
-        //console.error("ERROR: Couldn't load jQuery");
 }

@@ -42,6 +42,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 
 function runScript(code) {
     function callback(response) {
+        var r = response;
         //console.debug(response);
     }
 
