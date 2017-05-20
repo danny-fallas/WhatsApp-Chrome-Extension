@@ -13,6 +13,7 @@ function stopService() {
     chrome.browserAction.setIcon({ path: 'media/off.png' });
     chrome.browserAction.setTitle({ title: 'Turn ON' });
     runScript({ code: 'stop()' });
+    activeOnce = false;
 }
 
 function changeStatus(tabId) {
@@ -24,6 +25,7 @@ function changeStatus(tabId) {
     }
     else {
         stopService();
+        chrome.tabs.reload(_tabId);
     }
 }
 
@@ -32,10 +34,7 @@ chrome.browserAction.onClicked.addListener(function (tab) {
 });
 
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-    //TO DO: fix this functionality, the onUpdate method executes everytime any tab updates
-    //If the service was used once it will keep it on
-    if (activeOnce && (changeInfo.title && changeInfo.title.toLowerCase().includes('whatsapp'))
-        || (changeInfo.url && changeInfo.url.toLowerCase().includes('whatsapp'))) {
+    if (activeOnce && (tab.url && tab.url.toLowerCase().includes('whatsapp')) && (tab.status && tab.status === 'complete')) {
         isActive = true;
         startService();
     }
@@ -43,7 +42,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 
 function runScript(code) {
     function callback(response) {
-        console.debug(response);
+        //console.debug(response);
     }
 
     try {
@@ -52,7 +51,7 @@ function runScript(code) {
         else if (code.file)
             chrome.tabs.executeScript(_tabId, code);
     } catch (e) {
-        console.error('ERROR@chrome.tabs.executeScript: ' + e);
+        //console.error('ERROR@chrome.tabs.executeScript: ' + e);
     }
 }
 

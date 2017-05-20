@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Hide Whatsapp Bubbles",
-    "version": "1.10.5",
+    "version": "1.10.11",
     "description": "Don't be THAT guy.",
     "icons": {
         "32": "media/off.png",
@@ -29,7 +29,8 @@
     },
     "web_accessible_resources": [
         "js/background.js",
-        "media/troll.png"
+        "media/troll.png",
+        "media/obama.jpg"
     ],
     "permissions": [
         "tabs",
