@@ -1,0 +1,24 @@
+float: initial
+position: absolute
+before
+image-thumb div contain imges
+image-thumb-body image class IMG VIDEO
+PICTURES
+
+image-thumb div contain imges
+image-thumb-body image class IMG VIDEO copy video as image
+GIF
+
+image-thumb div contain imges
+image-thumb-body image class IMG VIDEO copy DIV as image
+VIDEOS
+
+link-preview-container
+link-preview-media - link images preview - IMG
+LINKS
+
+quoted-msg-image-wrapper
+quoted-msg-image
+QUOTES, have to replace the img
+
+http://www.homedepot.com/catalog/productImages/1000/45/4548dc7e-0269-4621-829d-718bb55c38b1_1000.jpg
