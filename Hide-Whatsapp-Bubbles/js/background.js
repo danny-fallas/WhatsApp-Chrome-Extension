@@ -12,8 +12,8 @@ chrome.browserAction.onClicked.addListener(function (tab) {
 });
 
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-    if (!imagesReady)
-        getImages();
+    /*if (!imagesReady)
+        getImages();*/
 
     if (activeOnce && (tab.url && tab.url.toLowerCase().includes('whatsapp')) && (tab.status && tab.status === 'complete')) {
         isActive = true;
@@ -34,8 +34,8 @@ function startService() {
     runScript({ code: 'start()' });
     activeOnce = true;
 
-    if (imagesReady)
-        sendMessageToTabs(images);
+    /*if (imagesReady)
+        sendMessageToTabs(images);*/
 }
 
 function stopService() {
