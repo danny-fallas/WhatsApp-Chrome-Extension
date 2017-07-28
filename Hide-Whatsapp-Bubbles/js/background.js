@@ -6,11 +6,36 @@ var _tabId = null;
 var images = [];
 var imagesReady = false;
 
+/* CHROME API */
+chrome.browserAction.onClicked.addListener(function (tab) {
+    changeStatus(tab.Id || tab.id);
+});
+
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+    if (!imagesReady)
+        getImages();
+
+    if (activeOnce && (tab.url && tab.url.toLowerCase().includes('whatsapp')) && (tab.status && tab.status === 'complete')) {
+        isActive = true;
+        startService();
+    }
+});
+
+chrome.contextMenus.create({
+    title: "Donate 1$",
+    contexts: ["browser_action"],  // ContextType
+    onclick: rightClickHandler // A callback function
+});
+/* END CHROME API */
+
 function startService() {
     chrome.browserAction.setIcon({ path: 'media/on.png' });
     chrome.browserAction.setTitle({ title: 'Turn OFF' });
     runScript({ code: 'start()' });
     activeOnce = true;
+
+    if (imagesReady)
+        sendMessageToTabs(images);
 }
 
 function stopService() {
@@ -26,8 +51,6 @@ function changeStatus(tabId) {
 
     if (isActive) {
         startService();
-        if (imagesReady)
-            sendMessageToTabs(images);
     }
     else {
         stopService();
@@ -35,16 +58,10 @@ function changeStatus(tabId) {
     }
 }
 
-chrome.browserAction.onClicked.addListener(function (tab) {
-    changeStatus(tab.Id || tab.id);
-});
-
-chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-    if (activeOnce && (tab.url && tab.url.toLowerCase().includes('whatsapp')) && (tab.status && tab.status === 'complete')) {
-        isActive = true;
-        startService();
-    }
-});
+function rightClickHandler() {
+    if (confirm('Donate 1$ with PayPal?'))
+        var win = window.open('https://www.paypal.me/DannyFallas/1', '_blank');
+};
 
 function sendMessageToTabs(message) {
     chrome.tabs.sendMessage(_tabId, message, null, null)
@@ -83,4 +100,3 @@ function getImages() {
 runScript({ file: 'contentscript.js' });
 //Force stop the service on start
 stopService();
-getImages();
