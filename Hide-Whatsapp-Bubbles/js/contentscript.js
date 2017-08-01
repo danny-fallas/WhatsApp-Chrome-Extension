@@ -76,20 +76,6 @@ function processElement(element) {
     function getImage(element, src, isCSS) {
     if (typeof $(element).attr('original-image') === 'undefined') {
         $(element).attr('original-image', src);
-
-        element.addEventListener('mouseover', function () {
-            stop();
-            var original = $(this).attr('original-image');
-            if (this.tagName && this.tagName === 'IMG') {
-                this.src = original;
-            }else if ($(this).css('background-image')) {
-                $(this).css('background-image', original);
-            }
-        }, false);
-
-        element.addEventListener('mouseout', function () {
-            start();
-        }, false);
     }
 
     var image = chrome.extension.getURL('media/obama.jpg');

@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Hover: for Whatsapp Web",
-    "version": "1.12.1",
+    "version": "1.12.2",
     "description": "Don't be afraid of using your desktop anymore",
     "icons": {
         "32": "media/off.png",
